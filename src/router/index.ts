@@ -16,13 +16,3 @@ export const router = createRouter({
     history: createWebHistory(),
     routes,
 })
-
-router.beforeEach((to, from, next) => {
-    const requiresAuth = to.meta.requiresAuth
-    const isAuthenticated = localStorage.getItem('token')
-    if (requiresAuth && !isAuthenticated) {
-        next('/login')
-    } else {
-        next()
-    }
-})

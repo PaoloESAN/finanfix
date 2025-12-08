@@ -1,21 +1,35 @@
 <script setup lang="ts">
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/vue'
+import { useAuth } from '@clerk/vue'
+import { useRouter, useRoute } from 'vue-router'
+import { watch } from 'vue'
+
+const { isSignedIn, isLoaded } = useAuth()
+const router = useRouter()
+const route = useRoute()
+
+watch([() => route.path, isLoaded, isSignedIn], () => {
+  if (isLoaded.value) {
+    if ((route.path === '/login' || route.path === '/register') && isSignedIn.value) {
+      router.push('/dashboard')
+    }
+    if (route.meta.requiresAuth && !isSignedIn.value) {
+      router.push('/login')
+    }
+  }
+}, { immediate: true })
 </script>
-
 <template>
+  <div v-if="!isLoaded">Cargando...</div>
+  <template v-else>
+  <header>
+    <SignedOut>
+      <SignInButton />
+    </SignedOut>
+    <SignedIn>
+      <UserButton />
+    </SignedIn>
+  </header>
   <RouterView />
+  </template>
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
