@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/vue'
 import { useAuth } from '@clerk/vue'
 import { useRouter, useRoute } from 'vue-router'
 import { watch } from 'vue'
@@ -20,13 +19,5 @@ watch([() => route.path, isLoaded, isSignedIn], () => {
 }, { immediate: true })
 </script>
 <template>
-  <header>
-    <SignedOut>
-      <SignInButton />
-    </SignedOut>
-    <SignedIn>
-      <UserButton />
-    </SignedIn>
-  </header>
   <RouterView />
 </template>
