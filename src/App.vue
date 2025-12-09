@@ -20,8 +20,6 @@ watch([() => route.path, isLoaded, isSignedIn], () => {
 }, { immediate: true })
 </script>
 <template>
-  <div v-if="!isLoaded">Cargando...</div>
-  <template v-else>
   <header>
     <SignedOut>
       <SignInButton />
@@ -31,5 +29,4 @@ watch([() => route.path, isLoaded, isSignedIn], () => {
     </SignedIn>
   </header>
   <RouterView />
-  </template>
 </template>
