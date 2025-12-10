@@ -30,7 +30,7 @@
             </template>
             <template #item="{ item }">
                 <a v-if="item.root"
-                    class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase"
+                    class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg"
                     style="border-radius: 2rem">
                     <span>{{ item.label }}</span>
                 </a>

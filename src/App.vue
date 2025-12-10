@@ -9,11 +9,9 @@ const route = useRoute()
 
 watch([() => route.path, isLoaded, isSignedIn], () => {
   if (isLoaded.value) {
-    if ((route.path === '/login' || route.path === '/register') && isSignedIn.value) {
-      router.push('/dashboard')
-    }
+    
     if (route.meta.requiresAuth && !isSignedIn.value) {
-      router.push('/login')
+      router.push('/')
     }
   }
 }, { immediate: true })
