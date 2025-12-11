@@ -26,7 +26,7 @@
     <div class="card">
         <MegaMenu :model="items" class="p-4 bg-surface-0" style="border-radius: 3rem">
             <template #start>
-                <span class="ml-2 font-bold text-2xl text-green-300">FINANFIX</span>
+                <span class="ml-2 font-bold text-2xl text-primary">FINANFIX</span>
             </template>
             <template #item="{ item }">
                 <a v-if="item.root"

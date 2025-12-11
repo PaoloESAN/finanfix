@@ -1,9 +1,12 @@
 <script setup lang="ts">
-
+import SideBar from '../components/SideBar.vue'
 </script>
 
 <template>
-    <div>
-        <h1>Dashboard</h1>
+    <div class="flex flex-row">
+        <SideBar />
+        <div class="flex flex-col flex-1">
+            <RouterView />
+        </div>
     </div>
 </template>
