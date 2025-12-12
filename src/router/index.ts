@@ -3,9 +3,10 @@ import { createWebHistory, createRouter } from 'vue-router'
 import Home from '../pages/Home.vue'
 import Dashboard from '../pages/Dashboard.vue'
 import DashboardHome from '../pages/dashboard/DashboardHome.vue'
-import DashboardMessages from '../pages/dashboard/DashboardMessages.vue'
+import DashboardInvertir from '../pages/dashboard/DashboardInvertir.vue'
+import DashboardAsistencia from '../pages/dashboard/DashboardAsistencia.vue'
 import DashboardSettings from '../pages/dashboard/DashboardSettings.vue'
-
+import DashboardAprender from '../pages/dashboard/DashboardAprender.vue'
 const routes = [
     { path: '/', component: Home },
     {
@@ -15,7 +16,9 @@ const routes = [
         redirect: '/dashboard/home',
         children: [
             { path: 'home', component: DashboardHome },
-            { path: 'mensajes', component: DashboardMessages },
+            { path: 'aprender', component: DashboardAprender },
+            { path: 'invertir', component: DashboardInvertir },
+            { path: 'asistencia', component: DashboardAsistencia },
             { path: 'settings', component: DashboardSettings },
         ]
     },
