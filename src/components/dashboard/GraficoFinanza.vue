@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch, computed, type PropType } from 'vue';
+import { onMounted, onUnmounted, ref, watch, computed, type PropType } from 'vue';
 import Chart from 'primevue/chart';
 
 type Periodo = 'hoy' | 'semana' | 'mes' | 'año';
@@ -13,17 +13,19 @@ const props = defineProps({
 
 const chartData = ref();
 const chartOptions = ref();
+const isDark = ref(document.documentElement.classList.contains('dark'));
+let observer: MutationObserver | null = null;
 
-const colors = {
+const colors = computed(() => ({
     primary: '#34d399',
     textMuted: '#6b7280',
-    border: '#374151'
-};
+    border: isDark.value ? '#374151' : '#e5e7eb'
+}));
 
 const categorias = ['Comida', 'Transporte', 'Entretenimiento', 'Servicios', 'Otros'];
 
 const datosPlaceholder = computed(() => {
-    switch (props.periodo.toLowerCase()) {
+    switch (props.periodo) {
         case 'hoy':
             return [45, 12, 0, 0, 8];
         case 'semana':
@@ -42,7 +44,7 @@ function setChartData() {
         labels: categorias,
         datasets: [
             {
-                backgroundColor: colors.primary,
+                backgroundColor: colors.value.primary,
                 data: datosPlaceholder.value,
                 borderRadius: {
                     topLeft: 8,
@@ -67,7 +69,7 @@ function setChartOptions() {
         scales: {
             x: {
                 ticks: {
-                    color: colors.textMuted
+                    color: colors.value.textMuted
                 },
                 grid: {
                     display: false
@@ -75,11 +77,11 @@ function setChartOptions() {
             },
             y: {
                 ticks: {
-                    color: colors.textMuted,
+                    color: colors.value.textMuted,
                     callback: (value: number) => `$${value}`
                 },
                 grid: {
-                    color: colors.border,
+                    color: colors.value.border,
                     drawTicks: false
                 }
             }
@@ -91,9 +93,22 @@ watch(() => props.periodo, () => {
     chartData.value = setChartData();
 });
 
+watch(isDark, () => {
+    chartData.value = setChartData();
+    chartOptions.value = setChartOptions();
+});
+
 onMounted(() => {
     chartData.value = setChartData();
     chartOptions.value = setChartOptions();
+    observer = new MutationObserver(() => {
+        isDark.value = document.documentElement.classList.contains('dark');
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+});
+
+onUnmounted(() => {
+    observer?.disconnect();
 });
 </script>
 

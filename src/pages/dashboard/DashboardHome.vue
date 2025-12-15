@@ -4,6 +4,7 @@
     import Button from 'primevue/button';
     import { Plus } from 'lucide-vue-next';
     import GraficoFinanza from '../../components/dashboard/GraficoFinanza.vue';
+    import TablaFinanza from '../../components/dashboard/TablaFinanza.vue';
 
     const selecPeriodo = ref('Hoy')
     const periodos = ref(['Hoy', 'Semana', 'Mes', 'Año'])
@@ -21,8 +22,9 @@
                 Agregar
             </Button>
         </div>
-        <div class="flex gap-8 mt-8">
-            <GraficoFinanza :periodo="selecPeriodo" />
+        <div class="flex flex-col gap-8 mt-8">
+            <GraficoFinanza :periodo="selecPeriodo.toLowerCase() as 'hoy' | 'semana' | 'mes' | 'año'" />
+            <TablaFinanza />
         </div>
     </div>
 </template>
