@@ -6,7 +6,7 @@
     import GraficoFinanza from '../../components/dashboard/GraficoFinanza.vue';
     import TablaFinanza from '../../components/dashboard/TablaFinanza.vue';
     import ModalAgregarFinanza from '../../components/dashboard/ModalAgregarFinanza.vue';
-
+    import Toast from 'primevue/toast';
 
     const selecPeriodo = ref('Hoy')
     const periodos = ref(['Hoy', 'Semana', 'Mes', 'Año'])
@@ -32,4 +32,5 @@
         </div>
     </div>
     <ModalAgregarFinanza v-model:visible="visibleModal" />
+    <Toast position="bottom-right" group="br" />
 </template>

@@ -10,6 +10,8 @@
     import { Form } from '@primevue/forms';
     import { Plus } from 'lucide-vue-next';
     import { useUser } from '@clerk/vue'
+    import { useToast } from "primevue/usetoast";
+    const toast = useToast();
 
     const { user } = useUser()
 
@@ -120,9 +122,11 @@
                 monto.value = null
                 fecha.value = new Date()
             }
+            toast.add({ severity: 'success', summary: 'Éxito', detail: 'Gasto agregado exitosamente', group: 'br', life: 3000 });
             return data
         } catch (error) {
             console.error('Error al guardar gasto:', error)
+            toast.add({ severity: 'error', summary: 'Error', detail: 'Error al guardar gasto', group: 'br', life: 3000 });
         } finally {
             loading.value = false
         }

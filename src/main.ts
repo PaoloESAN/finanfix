@@ -6,6 +6,8 @@ import { router } from './router'
 import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura';
 import Tooltip from 'primevue/tooltip';
+import ToastService from 'primevue/toastservice';
+
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
 if (!PUBLISHABLE_KEY) {
@@ -24,4 +26,5 @@ app.use(PrimeVue, {
     }
 })
 app.directive('tooltip', Tooltip);
+app.use(ToastService)
 app.mount('#app')
