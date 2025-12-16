@@ -13,7 +13,7 @@ if (!PUBLISHABLE_KEY) {
 }
 
 const app = createApp(App)
-app.use(clerkPlugin, { publishableKey: PUBLISHABLE_KEY, afterSignOutUrl: '/', afterSignInUrl: '/dashboard' })
+app.use(clerkPlugin, { publishableKey: PUBLISHABLE_KEY, signUpFallbackRedirectUrl: '/', signInFallbackRedirectUrl: '/dashboard' })
 app.use(router)
 app.use(PrimeVue, {
     theme: {
