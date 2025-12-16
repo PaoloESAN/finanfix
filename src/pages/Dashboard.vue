@@ -4,12 +4,11 @@ import { useUser } from '@clerk/vue'
 import SideBar from '../components/SideBar.vue'
 
 const { user, isLoaded } = useUser()
-
 const syncUsuario = async () => {
     if (!user.value) return
     
     try {
-        const response = await fetch('http://localhost:3000/usuarios/sync', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/usuarios/sync`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

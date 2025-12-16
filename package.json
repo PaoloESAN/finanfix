@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/vue": "^1.17.3",
     "@primeuix/themes": "^2.0.2",
+    "@primevue/forms": "^4.5.3",
     "@tailwindcss/vite": "^4.1.17",
     "@vueuse/core": "^14.1.0",
     "chart.js": "^4.5.1",
