@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import Button from 'primevue/button';
-    import { Wallet, Home, BookOpen, PiggyBank, Settings, Bot } from 'lucide-vue-next'
+    import { Wallet, Home, BookOpen, PiggyBank, Settings, /*Bot*/ } from 'lucide-vue-next'
     import { UserButton } from '@clerk/vue'
     import Divider from 'primevue/divider';
     import { RouterLink } from 'vue-router'
@@ -35,11 +35,11 @@
                                 <Wallet :size="18" :class="isActive ? 'text-surface-50 dark:text-surface-900' : 'text-surface-500 dark:group-hover:text-surface-50 group-hover:text-surface-700 transition-colors'" />
                             </Button>
                         </RouterLink>
-                        <RouterLink to="/dashboard/asistencia" v-slot="{ isActive }">
+                        <!---<RouterLink to="/dashboard/asistencia" v-slot="{ isActive }">
                             <Button icon=" " aria-label="Asistencia" :variant="isActive ? undefined : 'text'" class="group" v-tooltip="'Asistencia'">
                                 <Bot :size="18" :class="isActive ? 'text-surface-50 dark:text-surface-900' : 'text-surface-500 dark:group-hover:text-surface-50 group-hover:text-surface-700 transition-colors'" />
                             </Button>
-                        </RouterLink>
+                        </RouterLink>-->
                     </div>
                 </div>
                 <div class="w-12 flex flex-col items-center">
