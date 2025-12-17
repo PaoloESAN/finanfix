@@ -4,6 +4,18 @@ import Chart from 'primevue/chart';
 
 type Periodo = 'hoy' | 'semana' | 'mes' | 'año';
 
+interface Categoria {
+    id: number;
+    nombre: string;
+}
+
+interface Transaccion {
+    id: number;
+    categoria_id: number;
+    monto: string;
+    titulo: string;
+}
+
 const props = defineProps({
     periodo: {
         type: String as PropType<Periodo>,
@@ -14,7 +26,13 @@ const props = defineProps({
 const chartData = ref();
 const chartOptions = ref();
 const isDark = ref(document.documentElement.classList.contains('dark'));
+const datosGrafico = ref<number[]>([]);
+const categorias = ref<Categoria[]>([]);
+const isLoading = ref(false);
+const error = ref<string | null>(null);
 let observer: MutationObserver | null = null;
+
+const cache = new Map<Periodo, number[]>();
 
 const colors = computed(() => ({
     primary: '#34d399',
@@ -22,30 +40,86 @@ const colors = computed(() => ({
     border: isDark.value ? '#374151' : '#e5e7eb'
 }));
 
-const categorias = ['Comida', 'Transporte', 'Entretenimiento', 'Servicios', 'Otros'];
+const categoriasLabels = computed(() => categorias.value.map(c => c.nombre));
 
-const datosPlaceholder = computed(() => {
-    switch (props.periodo) {
-        case 'hoy':
-            return [45, 12, 0, 0, 8];
-        case 'semana':
-            return [280, 85, 120, 50, 45];
-        case 'mes':
-            return [1200, 350, 480, 320, 180];
-        case 'año':
-            return [14500, 4200, 5800, 3850, 2100];
-        default:
-            return [1200, 350, 480, 320, 180];
+async function fetchCategorias() {
+    try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/categorias`);
+        if (!response.ok) throw new Error('Error al cargar categorías');
+        categorias.value = await response.json();
+    } catch (err) {
+        console.error('Error al obtener categorías:', err);
+        categorias.value = [];
     }
-});
+}
+
+async function fetchDatos(periodo: Periodo) {
+    if (cache.has(periodo)) {
+        datosGrafico.value = cache.get(periodo)!;
+        updateChart();
+        return;
+    }
+
+    isLoading.value = true;
+    error.value = null;
+
+    try {
+        if (categorias.value.length === 0) {
+            await fetchCategorias();
+        }
+
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/transacciones/?periodo=${periodo}`);
+        
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+        
+        const transacciones: Transaccion[] = await response.json();
+
+        const montosPorCategoria = new Map<number, number>();
+        
+        for (const t of transacciones) {
+            const categoriaId = t.categoria_id;
+            const monto = parseFloat(t.monto) || 0;
+            montosPorCategoria.set(categoriaId, (montosPorCategoria.get(categoriaId) || 0) + monto);
+        }
+
+        const valores = categorias.value.map(cat => montosPorCategoria.get(cat.id) || 0);
+
+        cache.set(periodo, valores);
+        datosGrafico.value = valores;
+        updateChart();
+    } catch (err) {
+        console.error('Error al obtener datos:', err);
+        error.value = err instanceof Error ? err.message : 'Error desconocido';
+        datosGrafico.value = categorias.value.map(() => 0);
+        updateChart();
+    } finally {
+        isLoading.value = false;
+    }
+}
+
+function clearCache(periodo?: Periodo) {
+    if (periodo) {
+        cache.delete(periodo);
+    } else {
+        cache.clear();
+    }
+}
+
+defineExpose({ clearCache, fetchDatos });
+
+function updateChart() {
+    chartData.value = setChartData();
+}
 
 function setChartData() {
     return {
-        labels: categorias,
+        labels: categoriasLabels.value,
         datasets: [
             {
                 backgroundColor: colors.value.primary,
-                data: datosPlaceholder.value,
+                data: datosGrafico.value,
                 borderRadius: {
                     topLeft: 8,
                     topRight: 8
@@ -89,9 +163,9 @@ function setChartOptions() {
     };
 }
 
-watch(() => props.periodo, () => {
-    chartData.value = setChartData();
-});
+watch(() => props.periodo, (newPeriodo) => {
+    fetchDatos(newPeriodo);
+}, { immediate: false });
 
 watch(isDark, () => {
     chartData.value = setChartData();
@@ -99,8 +173,9 @@ watch(isDark, () => {
 });
 
 onMounted(() => {
-    chartData.value = setChartData();
     chartOptions.value = setChartOptions();
+    fetchDatos(props.periodo);
+    
     observer = new MutationObserver(() => {
         isDark.value = document.documentElement.classList.contains('dark');
     });
@@ -118,7 +193,19 @@ onUnmounted(() => {
             <h3 class="font-semibold text-xl mb-4 text-gray-800 dark:text-white">
                 Tú Resumen
             </h3>
-            <Chart type="bar" :data="chartData" :options="chartOptions" class="h-80" />
+            
+            <!-- Indicador de carga -->
+            <div v-if="isLoading" class="h-80 flex items-center justify-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
+            </div>
+            
+            <!-- Error -->
+            <div v-else-if="error" class="h-80 flex items-center justify-center text-red-500">
+                <p>{{ error }}</p>
+            </div>
+            
+            <!-- Gráfico -->
+            <Chart v-else type="bar" :data="chartData" :options="chartOptions" class="h-80" />
         </div>
     </div>
 </template>

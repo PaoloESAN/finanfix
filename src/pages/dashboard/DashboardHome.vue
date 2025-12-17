@@ -12,10 +12,13 @@
     const periodos = ref(['Hoy', 'Semana', 'Mes', 'Año'])
 
     const visibleModal = ref(false)
+    const graficoRef = ref<InstanceType<typeof GraficoFinanza> | null>(null)
     const tablaRef = ref<InstanceType<typeof TablaFinanza> | null>(null)
 
     const onGastoGuardado = () => {
         tablaRef.value?.recargar()
+        graficoRef.value?.clearCache()
+        graficoRef.value?.fetchDatos(selecPeriodo.value.toLowerCase() as 'hoy' | 'semana' | 'mes' | 'año')
     }
 
 </script>
@@ -32,7 +35,7 @@
             </Button>
         </div>
         <div class="flex flex-col gap-8 mt-8 w-full overflow-hidden">
-            <GraficoFinanza :periodo="selecPeriodo.toLowerCase() as 'hoy' | 'semana' | 'mes' | 'año'" />
+            <GraficoFinanza :periodo="selecPeriodo.toLowerCase() as 'hoy' | 'semana' | 'mes' | 'año'" ref="graficoRef" />
             <TablaFinanza ref="tablaRef" />
         </div>
     </div>

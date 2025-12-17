@@ -31,12 +31,10 @@
             const data = await response.json()
             
             data.forEach((item: any) => {
-                const fecha = new Date(item.fecha)
-                item.fecha = fecha.toLocaleDateString('es-PE', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                })
+                const fechaStr = item.fecha.split('T')[0]
+                const [year, month, day] = fechaStr.split('-')
+                item.fecha = `${day}/${month}/${year}`
+                
                 const categoria = categorias.value.find((c: any) => c.id === item.categoria_id)
                 item.categoria = categoria?.nombre || 'Sin categoría'
             })

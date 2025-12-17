@@ -8,7 +8,7 @@
     import Select from 'primevue/select';
     import Message from 'primevue/message';
     import { Form } from '@primevue/forms';
-    import { Plus } from 'lucide-vue-next';
+    //import { Plus } from 'lucide-vue-next';
     import { useUser } from '@clerk/vue'
     import { useToast } from "primevue/usetoast";
     const toast = useToast();
@@ -166,6 +166,7 @@
                                         <div>{{ slotProps.option.name }}</div>
                                     </div>
                                 </template>
+                                <!--
                                 <template #footer>
                                     <div class="p-3">
                                         <Button fluid severity="secondary" variant="text" size="small" >
@@ -174,6 +175,7 @@
                                         </Button>
                                     </div>
                                 </template>
+                            -->
                         </Select>
                     </div>
                     <Message v-if="$form.categoria?.invalid" severity="error" size="small" variant="simple" class="ml-28">{{ $form.categoria.error?.message }}</Message>
