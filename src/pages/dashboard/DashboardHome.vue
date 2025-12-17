@@ -12,6 +12,11 @@
     const periodos = ref(['Hoy', 'Semana', 'Mes', 'Año'])
 
     const visibleModal = ref(false)
+    const tablaRef = ref<InstanceType<typeof TablaFinanza> | null>(null)
+
+    const onGastoGuardado = () => {
+        tablaRef.value?.recargar()
+    }
 
 </script>
 
@@ -26,11 +31,11 @@
                 Agregar
             </Button>
         </div>
-        <div class="flex flex-col gap-8 mt-8">
+        <div class="flex flex-col gap-8 mt-8 w-full overflow-hidden">
             <GraficoFinanza :periodo="selecPeriodo.toLowerCase() as 'hoy' | 'semana' | 'mes' | 'año'" />
-            <TablaFinanza />
+            <TablaFinanza ref="tablaRef" />
         </div>
     </div>
-    <ModalAgregarFinanza v-model:visible="visibleModal" />
+    <ModalAgregarFinanza v-model:visible="visibleModal" @saved="onGastoGuardado" />
     <Toast position="bottom-right" group="br" />
 </template>

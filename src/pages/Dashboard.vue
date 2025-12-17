@@ -43,7 +43,7 @@ watch(
 <template>
     <div class="flex flex-row">
         <SideBar />
-        <div class="flex flex-col flex-1">
+        <div class="flex flex-col flex-1 min-w-0 overflow-hidden">
             <RouterView />
         </div>
     </div>

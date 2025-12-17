@@ -24,7 +24,8 @@
     const loading = ref(false)
     
     const emit = defineEmits([
-        'update:visible'
+        'update:visible',
+        'saved'
     ])
     const props = defineProps({
         visible: {
@@ -40,8 +41,7 @@
         titulo: '',
         descripcion: '',
         categoria: null,
-        monto: null,
-        fecha: new Date()
+        monto: null
     })
 
     const resolver = ({ values }: { values: any }) => {
@@ -57,10 +57,6 @@
 
         if (!values.monto || values.monto <= 0) {
             errors.monto = [{ message: 'El monto debe ser mayor a 0' }]
-        }
-
-        if (!values.fecha) {
-            errors.fecha = [{ message: 'La fecha es requerida' }]
         }
 
         return { errors }
@@ -107,7 +103,7 @@
                     descripcion: states.descripcion.value,
                     categoria_id: states.categoria.value?.value,
                     monto: states.monto.value,
-                    fecha: states.fecha.value,
+                    fecha: fecha.value,
                     usuario_id: usuarioDB.id
                 })
             })
@@ -115,6 +111,7 @@
             const data = await gastoResponse.json()
             
             if (gastoResponse.ok) {
+                emit('saved')
                 cerrarModal()
                 titulo.value = ''
                 descripcion.value = ''
@@ -138,7 +135,7 @@
         <Dialog :visible="visible" @update:visible="(val) => emit('update:visible', val)" modal header="Agregar gasto" :style="{ width: '25rem' }">
             <span class="text-surface-500 dark:text-surface-400 block mb-8">Agrega una nueva transaccion</span>
             
-            <Form v-slot="$form" :initialValues="initialValues" :resolver="resolver" @submit="insertarGasto">
+            <Form v-slot="$form" :initialValues="initialValues" :resolver="resolver" @submit="insertarGasto" autocomplete="off">
                 <div class="flex flex-col gap-1 mb-6">
                     <div class="flex items-center gap-4">
                         <label for="titulo" class="font-semibold w-24">Titulo</label>
@@ -185,17 +182,14 @@
                 <div class="flex flex-col gap-1 mb-6">
                     <div class="flex items-center gap-4">
                         <label for="monto" class="font-semibold w-24">Monto</label>
-                        <InputNumber name="monto" class="flex-auto" mode="currency" locale="es-PE" currency="PEN" placeholder="S/ 0.00"/>
+                        <InputNumber name="monto" class="flex-auto" mode="currency" locale="es-PE" currency="PEN" placeholder="S/ 0.00" />
                     </div>
                     <Message v-if="$form.monto?.invalid" severity="error" size="small" variant="simple" class="ml-28">{{ $form.monto.error?.message }}</Message>
                 </div>
 
-                <div class="flex flex-col gap-1 mb-8">
-                    <div class="flex items-center gap-4">
-                        <label for="fecha" class="font-semibold w-24">Fecha</label>
-                        <DatePicker name="fecha" dateFormat="dd/mm/yy" v-model="initialValues.fecha"/>
-                    </div>
-                    <Message v-if="$form.fecha?.invalid" severity="error" size="small" variant="simple" class="ml-28">{{ $form.fecha.error?.message }}</Message>
+                <div class="flex items-center gap-4 mb-8">
+                    <label for="fecha" class="font-semibold w-24">Fecha</label>
+                    <DatePicker v-model="fecha" dateFormat="dd/mm/yy" :manualInput="false"/>
                 </div>
 
                 <div class="flex justify-end gap-2">
