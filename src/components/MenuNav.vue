@@ -6,16 +6,20 @@
     import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/vue'
     const items = ref([
         {
-            label: 'Inicio'
+            label: 'Inicio',
+            to: '/'
         },
         {
-            label: 'Socios'
+            label: 'Socios',
+            to: '/socios'
         },
         {
-            label: 'Sobre Nosotros'
+            label: 'Sobre Nosotros',
+            to: '/sobre-nosotros'
         },
         {
-            label: 'Contacto'
+            label: 'Contacto',
+            to: '/contacto'
         }
     ]);
     const router = useRouter()
@@ -32,7 +36,9 @@
             <template #item="{ item }">
                 <a
                     class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg"
-                    style="border-radius: 2rem">
+                    style="border-radius: 2rem"
+                    @click="router.push(item.to)"
+                >
                     <span>{{ item.label }}</span>
                 </a>
             </template>
