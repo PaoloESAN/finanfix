@@ -198,18 +198,19 @@ onUnmounted(() => {
                 Tú Resumen
             </h3>
             
-            <!-- Indicador de carga -->
             <div v-if="isLoading" class="h-80 flex items-center justify-center">
                 <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
             </div>
             
-            <!-- Error -->
             <div v-else-if="error" class="h-80 flex items-center justify-center text-red-500">
                 <p>{{ error }}</p>
             </div>
             
-            <!-- Gráfico -->
-            <Chart v-else type="bar" :data="chartData" :options="chartOptions" class="h-80" />
+            <Chart v-else-if="chartData && chartData.labels?.length" type="bar" :data="chartData" :options="chartOptions" class="h-80" />
+            
+            <div v-else class="h-80 flex items-center justify-center text-gray-500">
+                <p>No tienes datos disponibles, agrega tus gastos.</p>
+            </div>
         </div>
     </div>
 </template>
