@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { Github, Twitter, Linkedin, Mail } from 'lucide-vue-next';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 </script>
 
 <template>
     <footer class="relative bg-slate-950 border-t border-slate-800">
         <div class="max-w-6xl mx-auto px-6 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- Logo y descripción -->
                 <div class="md:col-span-2">
                     <h3 class="text-2xl font-bold mb-4">
                         <span class="bg-linear-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
@@ -16,7 +18,6 @@ import { Github, Twitter, Linkedin, Mail } from 'lucide-vue-next';
                     <p class="text-slate-400 text-sm leading-relaxed max-w-md">
                         Tu plataforma de confianza para gestionar tus finanzas personales. Aprende, ahorra e invierte de manera inteligente.
                     </p>
-                    <!-- Redes sociales -->
                     <div class="flex gap-4 mt-6">
                         <a href="#" class="text-slate-500 hover:text-primary-400 transition-colors">
                             <Github class="w-5 h-5" />
@@ -33,34 +34,32 @@ import { Github, Twitter, Linkedin, Mail } from 'lucide-vue-next';
                     </div>
                 </div>
 
-                <!-- Links rápidos -->
                 <div>
                     <h4 class="text-white font-semibold mb-4">Enlaces</h4>
                     <ul class="space-y-3">
                         <li>
-                            <a href="#" class="text-slate-400 hover:text-white text-sm transition-colors">
+                            <a @click="router.push('/')" class="text-slate-400 hover:text-white text-sm transition-colors cursor-pointer">
                                 Inicio
                             </a>
                         </li>
                         <li>
-                            <a href="/sobre-nosotros" class="text-slate-400 hover:text-white text-sm transition-colors">
+                            <a @click="router.push('/sobre-nosotros')" class="text-slate-400 hover:text-white text-sm transition-colors cursor-pointer">
                                 Sobre nosotros
                             </a>
                         </li>
                         <li>
-                            <a href="/socios" class="text-slate-400 hover:text-white text-sm transition-colors">
+                            <a @click="router.push('/socios')" class="text-slate-400 hover:text-white text-sm transition-colors cursor-pointer">
                                 Socios
                             </a>
                         </li>
                         <li>
-                            <a href="/contacto" class="text-slate-400 hover:text-white text-sm transition-colors">
+                            <a @click="router.push('/contacto')" class="text-slate-400 hover:text-white text-sm transition-colors cursor-pointer">
                                 Contacto
                             </a>
                         </li>
                     </ul>
                 </div>
 
-                <!-- Recursos -->
                 <div>
                     <h4 class="text-white font-semibold mb-4">Recursos</h4>
                     <ul class="space-y-3">
@@ -88,7 +87,6 @@ import { Github, Twitter, Linkedin, Mail } from 'lucide-vue-next';
                 </div>
             </div>
 
-            <!-- Separador y copyright -->
             <div class="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-slate-500 text-sm">
                     © {{ new Date().getFullYear() }} ¿Que haces viendo esto?
