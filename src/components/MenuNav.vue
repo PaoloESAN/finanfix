@@ -1,26 +1,27 @@
 <script setup lang="ts">
     import { ref } from "vue";
+    import { useRouter } from "vue-router";
     import MegaMenu from "primevue/megamenu";
     import Button from "primevue/button";
     import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/vue'
     const items = ref([
         {
-            label: 'Inicio',
-            root: true,
+            label: 'Inicio'
         },
         {
-            label: 'Sobre nosotros',
-            root: true
+            label: 'Socios'
         },
         {
-            label: 'Contacto',
-            root: true
+            label: 'Sobre nosotros'
         },
         {
-            label: 'Dashboard',
-            root: true
+            label: 'Contacto'
         }
     ]);
+    const router = useRouter()
+    const irDashboard = () => {
+        router.push('/dashboard')
+    }
 </script>
 <template>
     <div class="card">
@@ -29,13 +30,14 @@
                 <span class="ml-2 font-bold text-2xl text-primary">FINANFIX</span>
             </template>
             <template #item="{ item }">
-                <a v-if="item.root"
+                <a
                     class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg"
                     style="border-radius: 2rem">
                     <span>{{ item.label }}</span>
                 </a>
             </template>
             <template #end>
+                <Button label="Dashboard" variant="outlined" rounded class="mr-2" @click="irDashboard"/>
                 <SignedOut>
                     <SignInButton>
                         <Button rounded label="Iniciar Sesión" />
