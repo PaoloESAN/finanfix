@@ -2,8 +2,7 @@
 </script>
 
 <template>
-    <div class="p-6">
-        <h1 class="text-2xl font-bold">Configuración</h1>
-        <p class="mt-4 text-surface-500">Ajustes de tu cuenta</p>
+    <div class="flex flex-col h-full items-center justify-center text-5xl font-bold">
+        Configurando la configuración...
     </div>
 </template>
