@@ -9,10 +9,13 @@ import DashboardSettings from '../pages/dashboard/DashboardSettings.vue'
 import DashboardAprender from '../pages/dashboard/DashboardAprender.vue'
 import SobreNosotros from '../pages/SobreNosotros.vue'
 import Contacto from '../pages/Contacto.vue'
+import Socios from '../pages/Socios.vue'
+
 const routes = [
     { path: '/', component: Home },
     { path: '/sobre-nosotros', component: SobreNosotros },
     { path: '/contacto', component: Contacto },
+    { path: '/socios', component: Socios },
     {
         path: '/dashboard',
         component: Dashboard,
