@@ -37,7 +37,7 @@ defineProps<{
                     <Button label="Ir al dashboard" size="large" @click="irDashboard"/>
                 </SignedIn>
                 <SignedOut>
-                    <SignInButton mode="modal">
+                    <SignInButton>
                         <Button label="Comenzar gratis" size="large"/>
                     </SignInButton>
                 </SignedOut>
