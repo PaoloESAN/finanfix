@@ -161,7 +161,6 @@ const valores = [
             </div>
         </section>
 
-        <!-- Footer -->
         <FooterSection />
     </div>
 </template>

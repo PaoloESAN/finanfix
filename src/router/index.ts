@@ -8,9 +8,11 @@ import DashboardAsistencia from '../pages/dashboard/DashboardAsistencia.vue'
 import DashboardSettings from '../pages/dashboard/DashboardSettings.vue'
 import DashboardAprender from '../pages/dashboard/DashboardAprender.vue'
 import SobreNosotros from '../pages/SobreNosotros.vue'
+import Contacto from '../pages/Contacto.vue'
 const routes = [
     { path: '/', component: Home },
     { path: '/sobre-nosotros', component: SobreNosotros },
+    { path: '/contacto', component: Contacto },
     {
         path: '/dashboard',
         component: Dashboard,
