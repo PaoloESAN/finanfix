@@ -12,7 +12,7 @@
             label: 'Socios'
         },
         {
-            label: 'Sobre nosotros'
+            label: 'Sobre Nosotros'
         },
         {
             label: 'Contacto'

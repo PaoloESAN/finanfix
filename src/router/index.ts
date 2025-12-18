@@ -7,8 +7,10 @@ import DashboardInvertir from '../pages/dashboard/DashboardInvertir.vue'
 import DashboardAsistencia from '../pages/dashboard/DashboardAsistencia.vue'
 import DashboardSettings from '../pages/dashboard/DashboardSettings.vue'
 import DashboardAprender from '../pages/dashboard/DashboardAprender.vue'
+import SobreNosotros from '../pages/SobreNosotros.vue'
 const routes = [
     { path: '/', component: Home },
+    { path: '/sobre-nosotros', component: SobreNosotros },
     {
         path: '/dashboard',
         component: Dashboard,
@@ -27,4 +29,7 @@ const routes = [
 export const router = createRouter({
     history: createWebHistory(),
     routes,
+    scrollBehavior() {
+        return { top: 0 }
+    }
 })
