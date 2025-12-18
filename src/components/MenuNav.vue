@@ -31,7 +31,9 @@
     <div class="card">
         <MegaMenu :model="items" class="p-4 bg-surface-0" style="border-radius: 3rem">
             <template #start>
-                <span class="ml-2 font-bold text-2xl text-primary">FINANFIX</span>
+                <div @click="router.push('/')">
+                    <span class="ml-2 font-bold text-2xl text-primary cursor-pointer">FINANFIX</span>
+                </div>
             </template>
             <template #item="{ item }">
                 <a

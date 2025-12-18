@@ -1,10 +1,35 @@
 <script setup lang="ts">
 import MenuNav from '../components/MenuNav.vue'
+import Reseñas from '../components/Reseñas.vue'
 import FooterSection from '../components/home/FooterSection.vue'
 import { Target, Users, Lightbulb, Heart } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+
+const reseñas = [
+    {
+        nombre: 'Freddy D.',
+        usuario: 'Lapicero',
+        avatar: 'https://finanfix.wordpress.com/wp-content/uploads/2025/04/john-wickwebp-edited.jpg',
+        estrellas: 5,
+        comentario: 'Me alegro mucho de que finanfix vuelva, siempre lo uso para todas mis finanzas, por eso ahora tengo una fabrica de lapiceros.',
+    },
+    {
+        nombre: 'Andrés W.',
+        usuario: 'OdioFinanfix',
+        avatar: 'https://finanfix.wordpress.com/wp-content/uploads/2025/04/kudasai_rezero4-edited.webp',
+        estrellas: 1,
+        comentario: 'La aplicación más horrible que vi en mi vida, no se lo recomendaría ni a mi peor enemigo, finanfix es el mayor fracaso en la industria de las finanzas, este proyecto no tiene futuro, es un ASCO.',
+    },
+    {
+        nombre: 'Fabrizzio C.',
+        usuario: 'DestruyanFinanfix',
+        avatar: 'https://finanfix.wordpress.com/wp-content/uploads/2025/05/onepc.jpg',
+        estrellas: 4,
+        comentario: 'Me alegra que tengan socios tan buenos. Gracias a finanfix puedo gestionar mis ganancias en los torneos de Left, además de mis gastos en juegos Gacha. Balatrozzz',
+    }
+]
 
 const valores = [
     {
@@ -138,7 +163,7 @@ const valores = [
                 </div>
             </div>
         </section>
-
+        <Reseñas :reseñas="reseñas" />
         <section class="py-20">
             <div class="max-w-4xl mx-auto px-6 text-center">
                 <div class="bg-slate-900/50 border border-slate-800 rounded-3xl p-12 backdrop-blur-sm relative overflow-hidden">
@@ -160,7 +185,6 @@ const valores = [
                 </div>
             </div>
         </section>
-
         <FooterSection />
     </div>
 </template>
