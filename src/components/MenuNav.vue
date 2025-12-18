@@ -45,13 +45,13 @@
                 </a>
             </template>
             <template #end>
-                <Button label="Dashboard" variant="outlined" rounded class="mr-2" @click="irDashboard"/>
                 <SignedOut>
                     <SignInButton>
                         <Button rounded label="Iniciar Sesión" />
                     </SignInButton>
                 </SignedOut>
                 <SignedIn>
+                    <Button label="Dashboard" variant="outlined" rounded class="mr-2" @click="irDashboard"/>
                     <UserButton />
                 </SignedIn>
             </template>

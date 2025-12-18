@@ -34,12 +34,11 @@ defineProps<{
             
             <div class="flex flex-col sm:flex-row gap-4 mt-4 animate-fade-in-up animation-delay-400">
                 <SignedIn>
-                    <Button label="Ir al dashboard" icon="pi pi-arrow-right" iconPos="right" size="large" @click="irDashboard"/>
+                    <Button label="Ir al dashboard" size="large" @click="irDashboard"/>
                 </SignedIn>
-                
                 <SignedOut>
                     <SignInButton mode="modal">
-                        <Button label="Comenzar gratis" icon="pi pi-arrow-right" iconPos="right" size="large"/>
+                        <Button label="Comenzar gratis" size="large"/>
                     </SignInButton>
                 </SignedOut>
             </div>

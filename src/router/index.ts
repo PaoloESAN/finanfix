@@ -38,3 +38,17 @@ export const router = createRouter({
         return { top: 0 }
     }
 })
+router.afterEach((to) => {
+    const clerkParams = ['__clerk_status', '__clerk_created_session_id', '__clerk_ticket', '__clerk_handshake']
+    const hasClerkParams = clerkParams.some(param => to.query[param])
+
+    if (hasClerkParams) {
+        const cleanQuery = { ...to.query }
+        clerkParams.forEach(param => delete cleanQuery[param])
+
+        router.replace({
+            path: to.path,
+            query: Object.keys(cleanQuery).length ? cleanQuery : undefined
+        })
+    }
+})
