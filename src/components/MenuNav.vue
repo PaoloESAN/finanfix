@@ -88,6 +88,19 @@
     :deep(.p-menubar-root-list) {
         position: static;
         transform: none;
+        text-align: center;
+        align-items: center;
+    }
+
+    :deep(.p-menubar-root-list > li) {
+        display: flex;
+        justify-content: center;
+    }
+
+    :deep(.p-menubar-button) {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 </style>
