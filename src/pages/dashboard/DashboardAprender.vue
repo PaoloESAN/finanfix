@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import CardFinanza from '../../components/aprender/CardFinanza.vue';
-const cards = ref([
+const cards = [
     {
         titulo: 'Aprende a invertir aquí',
         subtitulo: 'Aprende a invertir en criptomonedas, bolsa de valores y mucho más en este gran curso sobre inversión.',
@@ -30,7 +29,7 @@ const cards = ref([
         imagen: 'https://www.santander.com/content/dam/santander-com/es/stories/contenido-stories/2021/educacionfinanciera/im-storie-guia-para-saber-que-son-las-criptomonedas-3.jpg',
         url: 'https://www.bancosantander.es/glosario/criptomonedas'
     }
-])
+]
 </script>
 
 <template>
