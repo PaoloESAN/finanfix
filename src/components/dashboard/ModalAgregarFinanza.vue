@@ -9,11 +9,13 @@
     import Message from 'primevue/message';
     import { Form } from '@primevue/forms';
     //import { Plus } from 'lucide-vue-next';
-    import { useUser } from '@clerk/vue'
+    import { useUser, useAuth } from '@clerk/vue'
     import { useToast } from "primevue/usetoast";
+    import { authGet, authPost } from '../../services/api';
+    
     const toast = useToast();
-
     const { user } = useUser()
+    const { getToken } = useAuth()
 
     const titulo = ref()
     const descripcion = ref()
@@ -63,7 +65,7 @@
     }
 
     const fetchCategorias = async () => {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/categorias`)
+        const response = await authGet(getToken, '/categorias')
         const data = await response.json()
         return data
     }
@@ -84,7 +86,7 @@
         loading.value = true
 
         try {
-            const usuarioResponse = await fetch(`${import.meta.env.VITE_API_URL}/usuarios/clerk/${user.value.id}`)
+            const usuarioResponse = await authGet(getToken, `/usuarios/clerk/${user.value.id}`)
             
             if (!usuarioResponse.ok) {
                 console.error('Usuario no encontrado en la BD')
@@ -93,19 +95,13 @@
             
             const usuarioDB = await usuarioResponse.json()
 
-            const gastoResponse = await fetch(`${import.meta.env.VITE_API_URL}/transacciones`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    titulo: states.titulo.value,
-                    descripcion: states.descripcion.value,
-                    categoria_id: states.categoria.value?.value,
-                    monto: states.monto.value,
-                    fecha: fecha.value,
-                    usuario_id: usuarioDB.id
-                })
+            const gastoResponse = await authPost(getToken, '/transacciones', {
+                titulo: states.titulo.value,
+                descripcion: states.descripcion.value,
+                categoria_id: states.categoria.value?.value,
+                monto: states.monto.value,
+                fecha: fecha.value,
+                usuario_id: usuarioDB.id
             })
 
             const data = await gastoResponse.json()

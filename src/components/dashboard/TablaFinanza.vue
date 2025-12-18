@@ -3,7 +3,10 @@
     import Column from 'primevue/column';
     import { ref, onMounted } from 'vue';
     import Skeleton from 'primevue/skeleton';
+    import { useAuth } from '@clerk/vue';
+    import { authGet } from '../../services/api';
 
+    const { getToken } = useAuth();
     const loading = ref(true)
 
     onMounted(async () => {
@@ -17,7 +20,7 @@
 
     const fetchCategorias = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/categorias`)
+            const response = await authGet(getToken, '/categorias')
             const data = await response.json()
             categorias.value = data
         } catch (error) {
@@ -27,7 +30,7 @@
 
     const fetchTransactions = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/transacciones`)
+            const response = await authGet(getToken, '/transacciones')
             const data = await response.json()
             
             data.forEach((item: any) => {

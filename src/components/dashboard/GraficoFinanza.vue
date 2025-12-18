@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch, computed, type PropType } from 'vue';
 import Chart from 'primevue/chart';
+import { useAuth } from '@clerk/vue';
+import { authGet } from '../../services/api';
+
+const { getToken } = useAuth();
 
 type Periodo = 'hoy' | 'semana' | 'mes' | 'año';
 
@@ -44,7 +48,7 @@ const categoriasLabels = computed(() => categorias.value.map(c => c.nombre));
 
 async function fetchCategorias() {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/categorias`);
+        const response = await authGet(getToken, '/categorias');
         if (!response.ok) throw new Error('Error al cargar categorías');
         categorias.value = await response.json();
     } catch (err) {
@@ -68,7 +72,7 @@ async function fetchDatos(periodo: Periodo) {
             await fetchCategorias();
         }
 
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/transacciones/?periodo=${periodo}`);
+        const response = await authGet(getToken, `/transacciones/?periodo=${periodo}`);
         
         if (!response.ok) {
             throw new Error(`Error ${response.status}: ${response.statusText}`);
