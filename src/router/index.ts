@@ -43,12 +43,8 @@ router.afterEach((to) => {
     const hasClerkParams = clerkParams.some(param => to.query[param])
 
     if (hasClerkParams) {
-        const cleanQuery = { ...to.query }
-        clerkParams.forEach(param => delete cleanQuery[param])
-
-        router.replace({
-            path: to.path,
-            query: Object.keys(cleanQuery).length ? cleanQuery : undefined
-        })
+        const url = new URL(window.location.href)
+        clerkParams.forEach(param => url.searchParams.delete(param))
+        window.history.replaceState({}, '', url.pathname + (url.search || ''))
     }
 })
