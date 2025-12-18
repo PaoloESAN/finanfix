@@ -1,82 +1,93 @@
 <script setup lang="ts">
     import { ref } from "vue";
     import { useRouter } from "vue-router";
-    import MegaMenu from "primevue/megamenu";
+    import Menubar from "primevue/menubar";
     import Button from "primevue/button";
     import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/vue'
+    
+    const router = useRouter()
+    
     const items = ref([
         {
             label: 'Inicio',
-            to: '/'
+            route: '/'
         },
         {
             label: 'Socios',
-            to: '/socios'
+            route: '/socios'
         },
         {
             label: 'Sobre Nosotros',
-            to: '/sobre-nosotros'
+            route: '/sobre-nosotros'
         },
         {
             label: 'Contacto',
-            to: '/contacto'
+            route: '/contacto'
         }
     ]);
-    const router = useRouter()
+    
     const irDashboard = () => {
         router.push('/dashboard')
     }
 </script>
 <template>
     <div class="card">
-        <MegaMenu :model="items" class="p-4 bg-surface-0" style="border-radius: 3rem">
+        <Menubar :model="items" class="p-4 bg-surface-0" style="border-radius: 3rem">
             <template #start>
-                <div @click="router.push('/')">
-                    <span class="ml-2 font-bold text-2xl text-primary cursor-pointer">FINANFIX</span>
+                <div @click="router.push('/')" class="cursor-pointer">
+                    <span class="ml-2 font-bold text-2xl text-primary">FINANFIX</span>
                 </div>
             </template>
             <template #item="{ item }">
-                <a
-                    class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg"
+                <a 
+                    @click="router.push(item.route)"
+                    class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg hover:text-primary transition-colors"
                     style="border-radius: 2rem"
-                    @click="router.push(item.to)"
                 >
                     <span>{{ item.label }}</span>
                 </a>
             </template>
             <template #end>
-                <SignedOut>
-                    <SignInButton>
-                        <Button rounded label="Iniciar Sesión" />
-                    </SignInButton>
-                </SignedOut>
-                <SignedIn>
-                    <Button label="Dashboard" variant="outlined" rounded class="mr-2" @click="irDashboard"/>
-                    <UserButton />
-                </SignedIn>
+                <div class="flex items-center gap-2">
+                    <SignedOut>
+                        <SignInButton>
+                            <Button rounded label="Iniciar Sesión" />
+                        </SignInButton>
+                    </SignedOut>
+                    <SignedIn>
+                        <Button label="Dashboard" variant="outlined" rounded class="mr-2" @click="irDashboard"/>
+                        <UserButton />
+                    </SignedIn>
+                </div>
             </template>
-        </MegaMenu>
+        </Menubar>
     </div>
 </template>
 
 <style scoped>
-:deep(.p-megamenu) {
+:deep(.p-menubar) {
     position: relative;
 }
 
-:deep(.p-megamenu-root-list) {
+:deep(.p-menubar-root-list) {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     justify-content: center;
 }
 
-:deep(.p-megamenu-start) {
+:deep(.p-menubar-start) {
     z-index: 1;
 }
 
-:deep(.p-megamenu-end) {
+:deep(.p-menubar-end) {
     z-index: 1;
     margin-left: auto;
+}
+@media (max-width: 960px) {
+    :deep(.p-menubar-root-list) {
+        position: static;
+        transform: none;
+    }
 }
 </style>
