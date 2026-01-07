@@ -54,7 +54,7 @@ const valores = [
 </script>
 
 <template>
-    <div class="bg-slate-950 min-h-screen">
+    <div class="dark bg-slate-950 min-h-screen">
         <nav class="fixed top-0 left-0 right-0 m-4 z-50">
             <MenuNav />
         </nav>
@@ -63,8 +63,10 @@ const valores = [
             <div class="absolute top-20 left-20 w-64 h-64 bg-purple-600 rounded-full blur-[120px] opacity-40"/>
             <div class="absolute bottom-0 right-20 w-80 h-80 bg-cyan-500 rounded-full blur-[100px] opacity-30"/>
             
+            <div class="section-fade-bottom"></div>
+            
             <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">
                     Sobre 
                     <span class="bg-linear-to-r from-primary-400 to-cyan-400 bg-clip-text text-transparent">
                         Nosotros
@@ -188,3 +190,22 @@ const valores = [
         <FooterSection />
     </div>
 </template>
+
+<style scoped>
+.section-fade-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(2, 6, 23, 0.3) 30%,
+        rgba(2, 6, 23, 0.7) 70%,
+        rgb(2, 6, 23) 100%
+    );
+    pointer-events: none;
+    z-index: 5;
+}
+</style>

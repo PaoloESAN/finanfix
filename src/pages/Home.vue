@@ -37,11 +37,13 @@ const reseñas = [
 </script>
 
 <template>
-    <nav class="fixed top-0 left-0 right-0 m-4 z-50">
-        <MenuNav />
-    </nav>
-    <HeroSection :irDashboard="irDashboard" />
-    <InformacionSection :irDashboard="irDashboard" />
-    <Reseñas :reseñas="reseñas" />
-    <FooterSection />
+    <div class="dark">
+        <nav class="fixed top-0 left-0 right-0 m-4 z-50">
+            <MenuNav />
+        </nav>
+        <HeroSection :irDashboard="irDashboard" />
+        <InformacionSection :irDashboard="irDashboard" />
+        <Reseñas :reseñas="reseñas" />
+        <FooterSection />
+    </div>
 </template>

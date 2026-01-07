@@ -18,7 +18,7 @@ const props = defineProps<{
         
         <div class="relative z-10 max-w-6xl mx-auto px-6">
             <div class="text-center mb-20">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">
                     Aprende más sobre 
                     <span class="bg-linear-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
                         finanzas

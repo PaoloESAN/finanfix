@@ -58,7 +58,7 @@ const servicios = [
 </script>
 
 <template>
-    <div class="bg-black min-h-screen overflow-hidden">
+    <div class="dark bg-black min-h-screen overflow-hidden">
         <nav class="fixed top-0 left-0 right-0 m-4 z-50">
             <MenuNav />
         </nav>

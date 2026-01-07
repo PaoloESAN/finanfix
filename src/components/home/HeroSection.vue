@@ -14,6 +14,7 @@ defineProps<{
         <div class="absolute top-1/2 right-10 md:right-96 w-72 md:w-96 h-72 md:h-96 bg-cyan-500 rounded-full blur-[100px] opacity-40 animate-blob animation-delay-2000"/>
         <div class="absolute -bottom-20 left-1/4 md:left-1/3 w-56 md:w-72 h-56 md:h-72 bg-blue-500 rounded-full blur-[80px] opacity-30 animate-blob animation-delay-4000"/>
         <div class="absolute top-1/3 right-1/4 w-48 h-48 bg-primary-500 rounded-full blur-[100px] opacity-20 animate-blob animation-delay-3000"/>
+        <div class="section-fade-bottom"></div>
         
         <main class="relative z-10 flex flex-col items-center justify-center gap-6 min-h-screen px-6 backdrop-blur-3xl">
             <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-500/10 border border-primary-500/30 rounded-full animate-fade-in">
@@ -21,7 +22,7 @@ defineProps<{
                 <span class="text-primary-400 text-sm font-medium">Nueva IA disponible</span>
             </div>
             
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-center max-w-4xl leading-tight animate-fade-in-up">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-center max-w-4xl leading-tight animate-fade-in-up text-white">
                 Gestiona tus finanzas con 
                 <span class="bg-linear-to-r from-primary-400 to-cyan-400 bg-clip-text text-transparent">
                     inteligencia
@@ -122,5 +123,23 @@ defineProps<{
 
 .animation-delay-4000 {
     animation-delay: 4s;
+}
+
+.section-fade-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(2, 6, 23, 0.2) 20%,
+        rgba(2, 6, 23, 0.5) 50%,
+        rgba(2, 6, 23, 0.8) 75%,
+        rgb(2, 6, 23) 100%
+    );
+    pointer-events: none;
+    z-index: 5;
 }
 </style>

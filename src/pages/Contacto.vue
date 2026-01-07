@@ -49,7 +49,7 @@ const contactInfo = [
 </script>
 
 <template>
-    <div class="bg-slate-950 min-h-screen">
+    <div class="dark bg-slate-950 min-h-screen">
         <nav class="fixed top-0 left-0 right-0 m-4 z-50">
             <MenuNav />
         </nav>
@@ -58,8 +58,10 @@ const contactInfo = [
             <div class="absolute top-20 right-20 w-64 h-64 bg-primary-500 rounded-full blur-[120px] opacity-40"/>
             <div class="absolute bottom-0 left-20 w-80 h-80 bg-cyan-500 rounded-full blur-[100px] opacity-30"/>
             
+            <div class="section-fade-bottom"></div>
+            
             <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">
                     <span class="bg-linear-to-r from-primary-400 to-cyan-400 bg-clip-text text-transparent">
                         Contáctanos
                     </span>
@@ -71,7 +73,9 @@ const contactInfo = [
             </div>
         </section>
 
-        <section class="py-20">
+        <section class="py-20 relative">
+            <div class="section-fade-bottom"></div>
+            
             <div class="max-w-6xl mx-auto px-6">
                 <div class="grid lg:grid-cols-5 gap-12 items-end">
                     
@@ -126,7 +130,7 @@ const contactInfo = [
                                         <InputText 
                                             v-model="form.nombre" 
                                             placeholder="Tu nombre"
-                                            class="w-full"
+                                            class="w-full dark-input"
                                             required
                                         />
                                     </div>
@@ -136,7 +140,7 @@ const contactInfo = [
                                             v-model="form.email" 
                                             type="email"
                                             placeholder="tu@email.com"
-                                            class="w-full"
+                                            class="w-full dark-input"
                                             required
                                         />
                                     </div>
@@ -147,7 +151,7 @@ const contactInfo = [
                                     <InputText 
                                         v-model="form.asunto" 
                                         placeholder="¿En qué podemos ayudarte?"
-                                        class="w-full"
+                                        class="w-full dark-input"
                                         required
                                     />
                                 </div>
@@ -158,7 +162,7 @@ const contactInfo = [
                                         v-model="form.mensaje" 
                                         placeholder="Escribe tu mensaje aquí..."
                                         rows="5"
-                                        class="w-full"
+                                        class="w-full dark-input"
                                         required
                                     />
                                 </div>
@@ -209,3 +213,55 @@ const contactInfo = [
         <FooterSection />
     </div>
 </template>
+
+<style scoped>
+.section-fade-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(2, 6, 23, 0.3) 30%,
+        rgba(2, 6, 23, 0.7) 70%,
+        rgb(2, 6, 23) 100%
+    );
+    pointer-events: none;
+    z-index: 5;
+}
+
+:deep(.dark-input) {
+    background-color: rgba(15, 23, 42, 0.8) !important;
+    border-color: rgba(71, 85, 105, 0.5) !important;
+    color: #fff !important;
+}
+
+:deep(.dark-input::placeholder) {
+    color: rgba(148, 163, 184, 0.6) !important;
+}
+
+:deep(.dark-input:focus) {
+    border-color: #2dd4bf !important;
+    box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.2) !important;
+}
+
+:deep(.p-inputtext),
+:deep(.p-textarea) {
+    background-color: rgba(15, 23, 42, 0.8) !important;
+    border-color: rgba(71, 85, 105, 0.5) !important;
+    color: #fff !important;
+}
+
+:deep(.p-inputtext::placeholder),
+:deep(.p-textarea::placeholder) {
+    color: rgba(148, 163, 184, 0.6) !important;
+}
+
+:deep(.p-inputtext:focus),
+:deep(.p-textarea:focus) {
+    border-color: #2dd4bf !important;
+    box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.2) !important;
+}
+</style>
